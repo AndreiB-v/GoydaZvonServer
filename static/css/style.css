@@ -1,0 +1,61 @@
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(140 140 140);
+}
+
+caption {
+  caption-side: top;
+  padding: 10px;
+  font-weight: bold;
+}
+
+thead,
+tfoot {
+  background-color: rgb(228 240 245);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: rgb(237 238 242);
+}
+
+h1, h2, h3, h4 {
+font-size: 1.5rem;
+text-align: center;
+line-height: 2;
+}
+
+img {
+  display: block;
+  margin: auto;
+  width: 50%;
+}
+
+.btn
+{
+border-radius: 0;
+background-color: rgb(228 240 245);
+border: 1px solid rgb(160 160 160);
+padding: 8px 10px;
+}
+
+.hov-color
+{
+color: black;
+}
+
+.hov-color:hover {
+color: white;
+}
+
+.custom-font
+{
+font-family: sans-serif;
+letter-spacing: 1px;
+font-size: 0.8rem;
+}

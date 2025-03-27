@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3 class="custom-font" style="font-size: 1.5rem;">Все пользователи</h3>
+
+<ol class="list-group list-group-numbered custom-font">
+    {% for user in users%}
+
+    <table>
+        <caption>
+            Пользователь {{loop.index}}
+        </caption>
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>nickname</th>
+            <th>phone</th>
+            <th>real_name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.nickname }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.real_name }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    {% endfor %}
+</ol>
+
+{% endblock %}
