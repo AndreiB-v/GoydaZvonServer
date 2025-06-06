@@ -1,6 +1,5 @@
 """Flask config."""
 from os import environ, path
-
 from dotenv import load_dotenv
 
 load_dotenv() # Импортируем и используем функцию для автоматического считывания значений из файла .env
