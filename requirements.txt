@@ -1,0 +1,8 @@
+SQLAlchemy
+Flask-Login
+werkzeug
+flask
+Flask-RESTful
+requests
+dotenv
+python-dotenv
