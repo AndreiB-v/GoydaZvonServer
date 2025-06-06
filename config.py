@@ -3,13 +3,12 @@ from os import environ, path
 
 from dotenv import load_dotenv
 
-basedir = path.abspath(path.dirname(__file__))
-load_dotenv(path.join(basedir, '.env'))
+load_dotenv() # Импортируем и используем функцию для автоматического считывания значений из файла .env
+base_dir = path.abspath(path.dirname(__file__))
 
 
 class Config:
-    """Set Flask config variables."""
-
-    SECRET_KEY = environ.get('SECRET_KEY')
+    SECRET_KEY = environ.get("SECRET_KEY") or "never_gues_my_key"
     STATIC_FOLDER = 'static'
     TEMPLATES_FOLDER = 'templates'
+
