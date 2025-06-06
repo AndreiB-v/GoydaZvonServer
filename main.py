@@ -3,10 +3,10 @@ from flask_restful import Api
 
 from data import db_session
 from data.__all_models import *
-from data.users_resources import UserResource, UsersListResource
+from data.users_resources import UserResource, UsersListResource, UserLogin, UserPhone
 from data.chats_resources import ChatResource, ChatsListResource
 from data.messages_resources import MessageResource, MessagesListResource
-from data.contacts_resources import ContactResource, ContactsListResource
+from data.contacts_resources import ContactResource, ContactsListResource, ContactsDescriptions
 
 app = Flask(__name__)
 api = Api(app)
@@ -15,6 +15,8 @@ app.config.from_object('config.Config')
 # USERS API
 api.add_resource(UsersListResource, '/api/users')
 api.add_resource(UserResource, '/api/users/<int:user_id>')
+api.add_resource(UserPhone, '/api/user_phone/<int:phone>')
+api.add_resource(UserLogin, '/api/user_login')
 
 # CHATS API
 api.add_resource(ChatsListResource, '/api/chats')
@@ -27,6 +29,7 @@ api.add_resource(MessageResource, '/api/messages/<int:message_id>')
 # CONTACTS API
 api.add_resource(ContactsListResource, '/api/contacts')
 api.add_resource(ContactResource, '/api/contacts/<int:contact_id>')
+api.add_resource(ContactsDescriptions, '/api/contact_description')
 
 
 def main():

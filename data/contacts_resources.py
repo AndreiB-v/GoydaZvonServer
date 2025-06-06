@@ -5,9 +5,9 @@ from . import db_session
 from .contacts import Contact
 
 parser = reqparse.RequestParser()
-parser.add_argument('user_id', required=True, type=int)
-parser.add_argument('user_contact_id', required=True, type=int)
-parser.add_argument('description_contact', required=True)
+parser.add_argument('user_id', required=False, type=int)
+parser.add_argument('user_contact_id', required=False, type=int)
+parser.add_argument('description_contact', required=False)
 
 
 def abort_if_contact_not_found(contact_id):
@@ -26,8 +26,7 @@ class ContactResource(Resource):
             only=('id',
                   'user_id',
                   'user_contact_id',
-                  'user.nickname',
-                  'user_contact.nickname'))})
+                  'description_contact'))})
 
     def delete(self, contact_id):
         abort_if_contact_not_found(contact_id)
@@ -38,6 +37,32 @@ class ContactResource(Resource):
         return jsonify({'success': 'OK'})
 
 
+class ContactsDescriptions(Resource):
+    def get(self):
+        session = db_session.create_session()
+        args = parser.parse_args()
+        contact = session.query(Contact).filter(Contact.user_id == args['user_id'],
+                                                Contact.user_contact_id == args['user_contact_id']).first()
+        if contact:
+            return jsonify({'contact': contact.to_dict(
+                only=('id',
+                      'user_id',
+                      'user_contact_id',
+                      'description_contact'))})
+        abort(404, message=f"Такого контакта не существует!")
+
+    def put(self):
+        session = db_session.create_session()
+        args = parser.parse_args()
+        contact = session.query(Contact).filter(Contact.user_id == args['user_id'],
+                                                Contact.user_contact_id == args['user_contact_id']).first()
+        if contact:
+            contact.description_contact = args['description_contact']
+            session.commit()
+            return jsonify({'message': 'OK'})
+        abort(404, message=f"Обязательно нужно указать user_id, user_contact_id")
+
+
 class ContactsListResource(Resource):
     def get(self):
         session = db_session.create_session()
@@ -46,17 +71,17 @@ class ContactsListResource(Resource):
             only=('id',
                   'user_id',
                   'user_contact_id',
-                  'user.nickname',
-                  'user_contact.nickname')) for item in contacts]})
+                  'description_contact')) for item in contacts]})
 
     def post(self):
         args = parser.parse_args()
         session = db_session.create_session()
-        contact = Contact(
-            user_id=args['user_id'],
-            user_contact_id=args['user_contact_id'],
-            description_contact=args['description_contact']
-        )
-        session.add(contact)
-        session.commit()
-        return jsonify({'id': contact.id})
+        if all([args['user_id'], args['user_contact_id']]):
+            contact = Contact(
+                user_id=args['user_id'],
+                user_contact_id=args['user_contact_id']
+            )
+            session.add(contact)
+            session.commit()
+            return jsonify({'id': contact.id})
+        abort(404, message=f"Обязательно нужно указать user_id, user_contact_id")

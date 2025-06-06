@@ -1,4 +1,4 @@
-from requests import get, post
+from requests import get, post, put
 
 # print(post('http://localhost:5000/api/users',
 #            json={'nickname': 'GooDnes',
@@ -21,7 +21,9 @@ from requests import get, post
 #            json={'user_id': 1,
 #                  'user_contact_id': 2,
 #                  'description_contact': 'челик'}).json())
+# print(get('http://localhost:5000/api/user_login',
+#           json={'phone': '79011093769', 'password': '123456'}).json())
+# print(get('http://localhost:5000/api/user_phone/79011093769').json())
+# print(put('http://localhost:5000/api/users/1', json={'nickname': 'GooDnes'}).json())
 print(get('http://localhost:5000/api/users/1').json())
-print(get('http://localhost:5000/api/chats/1').json())
-print(get('http://localhost:5000/api/messages/1').json())
 print(get('http://localhost:5000/api/contacts/1').json())
